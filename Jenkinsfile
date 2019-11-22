@@ -13,28 +13,43 @@ pipeline {
 
     stages {
 
-        stage("Build and Deploy") {
-            steps { buildApp() }
+        stage("Build - dev ") {
+            steps { buildApp('dev') }
 	}
-    }
+	stage("Test - dev ") {
+            steps { runUAT(8010) }
+	}
+	    
+	stage("Approve") {
+            steps { approve() }
+	}
 	
-    stages {
+        stage("Deploy - Live") {
+            steps { buildApp('live') }
+	}
 
-        stage("Test") {
-            steps { testApp() }
+	stage("Test - UAT Live") {
+            steps { runUAT(8020) }
 	}
     }
 }
 
-def buildApp() {
+def buildApp(environment) {
 
-	sh "docker-compose up -d --force-recreate"
-}
-
-
-def testApp() {
-
-	sh "docker "
+	if ("${environment}" == 'dev') {
+		sh "docker stop $(docker ps -q  --filter name=librenms-dev)"
+		sh "docker rm $(docker ps -a -q  --filter name=librenms-dev)"
+		sh "docker-compose up --force-recreate -f docker-compose-dev.yml"
+	} 
+	else if ("${environment}" == 'live') {
+		sh "docker stop $(docker ps -q  --filter name=librenms-prod)"
+		sh "docker rm $(docker ps -a -q  --filter name=librenms-prod)"
+		sh "docker-compose up --force-recreate -f docker-compose-prod.yml"
+	}
+	else {
+		println "Environment not valid"
+		System.exit(0)
+	}
 }
 
 def approve() {
