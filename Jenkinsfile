@@ -16,9 +16,9 @@ pipeline {
         stage("Build - dev") {
             steps { buildApp('dev') }
 	}
-	stage("Test - dev") {
+	/**stage("Test - dev") {
             steps { runUAT(8010) }
-	}
+	}**/
 	    
 	stage("Approve") {
             steps { approve() }
@@ -28,9 +28,9 @@ pipeline {
             steps { buildApp('prod') }
 	}
 
-	stage("Test - UAT Live") {
+	/**stage("Test - UAT Live") {
             steps { runUAT(8020) }
-	}
+	}**/
     }
 }
 
