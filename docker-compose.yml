@@ -81,7 +81,7 @@ services:
       - "DB_PASSWORD=${MYSQL_PASSWORD}"
       - "DB_TIMEOUT=60"
     env_file:
-      - "./librenms.env"
+      - "/home/jenkins/workspace/Docker-Compose/librenms.env"
     restart: always
 
   cron:
