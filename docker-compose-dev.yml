@@ -3,7 +3,7 @@ version: "3.5"
 services:
   db:
     image: mariadb:10.2
-    container_name: librenms_db
+    container_name: librenms-dev_db
     command:
       - "mysqld"
       - "--sql-mode="
@@ -30,7 +30,7 @@ services:
 
   rrdcached:
     image: crazymax/rrdcached
-    container_name: librenms_rrdcached
+    container_name: librenms-dev_rrdcached
     volumes:
       - "./librenms/rrd:/data/db"
       - "./rrd-journal:/data/journal"
@@ -57,7 +57,7 @@ services:
 
   librenms:
     image: librenms/librenms:1.46
-    container_name: librenms
+    container_name: librenms-dev
     domainname: example.com
     hostname: librenms
     ports:
@@ -86,7 +86,7 @@ services:
 
   cron:
     image: librenms/librenms:1.46
-    container_name: librenms_cron
+    container_name: librenms-dev_cron
     domainname: example.com
     hostname: librenms
     depends_on:
@@ -109,7 +109,7 @@ services:
 
   syslog-ng:
     image: librenms/librenms:1.46
-    container_name: librenms_syslog
+    container_name: librenms-dev_syslog
     domainname: example.com
     hostname: librenms
     depends_on:
