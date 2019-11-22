@@ -60,7 +60,7 @@ def approve() {
 }
 
 def runUAT(port) {
-	sh "cd tests ; runUAT.sh ${port}"
+	sh "tests/runUAT.sh ${port}"
 
 }
 
