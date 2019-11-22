@@ -39,12 +39,12 @@ def buildApp(environment) {
 	if ("${environment}" == 'dev') {
 		/**sh "docker stop \$(docker ps -q --filter name=librenms-dev)"
 		sh "docker rm \$(docker ps -a -q --filter name=librenms-dev)"**/
-		sh "cd dev ; docker-compose up -d --force-recreate"
+		sh "cd dev ; docker-compose up -d --force-recreate ; cd .."
 	} 
 	else if ("${environment}" == 'prod') {
 		/**sh "docker stop \$(docker ps -q --filter name=librenms-prod)"
 		sh "docker rm \$(docker ps -a -q --filter name=librenms-prod)"**/
-		sh "cd prod ; docker-compose up -d --force-recreate"
+		sh "cd prod ; docker-compose up -d --force-recreate; cd .."
 	}
 	else {
 		println "Environment not valid"
