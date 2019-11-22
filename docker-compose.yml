@@ -62,7 +62,7 @@ services:
     hostname: librenms
     ports:
       - target: 80
-        published: 80
+        published: 8010
         protocol: tcp
     depends_on:
       - db
