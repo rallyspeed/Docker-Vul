@@ -24,8 +24,8 @@ pipeline {
             steps { approve() }
 	}
 	
-        stage("Deploy - Live") {
-            steps { buildApp('live') }
+        stage("Deploy - Prod") {
+            steps { buildApp('prod') }
 	}
 
 	stage("Test - UAT Live") {
@@ -39,12 +39,12 @@ def buildApp(environment) {
 	if ("${environment}" == 'dev') {
 		/**sh "docker stop \$(docker ps -q --filter name=librenms-dev)"
 		sh "docker rm \$(docker ps -a -q --filter name=librenms-dev)"**/
-		sh "docker-compose up --force-recreate -f docker-compose-dev.yml"
+		sh "cd dev ; docker-compose up -d --force-recreate"
 	} 
-	else if ("${environment}" == 'live') {
+	else if ("${environment}" == 'prod') {
 		/**sh "docker stop \$(docker ps -q --filter name=librenms-prod)"
 		sh "docker rm \$(docker ps -a -q --filter name=librenms-prod)"**/
-		sh "docker-compose up --force-recreate -f docker-compose-prod.yml"
+		sh "cd prod ; docker-compose up -d --force-recreate"
 	}
 	else {
 		println "Environment not valid"
