@@ -23,7 +23,7 @@ services:
 
   memcached:
     image: memcached:alpine
-    container_name: librenms_memcached
+    container_name: librenms-dev_memcached
     environment:
       - "TZ=${TZ}"
     restart: always
