@@ -13,10 +13,10 @@ pipeline {
 
     stages {
 
-        stage("Build - dev ") {
+        stage("Build - dev") {
             steps { buildApp('dev') }
 	}
-	stage("Test - dev ") {
+	stage("Test - dev") {
             steps { runUAT(8010) }
 	}
 	    
@@ -37,13 +37,13 @@ pipeline {
 def buildApp(environment) {
 
 	if ("${environment}" == 'dev') {
-		sh "docker stop $(docker ps -q  --filter name=librenms-dev)"
-		sh "docker rm $(docker ps -a -q  --filter name=librenms-dev)"
+		sh "docker stop $(docker ps -q --filter name=librenms-dev)"
+		sh "docker rm $(docker ps -a -q --filter name=librenms-dev)"
 		sh "docker-compose up --force-recreate -f docker-compose-dev.yml"
 	} 
 	else if ("${environment}" == 'live') {
-		sh "docker stop $(docker ps -q  --filter name=librenms-prod)"
-		sh "docker rm $(docker ps -a -q  --filter name=librenms-prod)"
+		sh "docker stop $(docker ps -q --filter name=librenms-prod)"
+		sh "docker rm $(docker ps -a -q --filter name=librenms-prod)"
 		sh "docker-compose up --force-recreate -f docker-compose-prod.yml"
 	}
 	else {
