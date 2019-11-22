@@ -36,3 +36,16 @@ def testApp() {
 
 	sh "docker "
 }
+
+def approve() {
+
+	timeout(time:1, unit:'DAYS') {
+		input('Do you want to deploy to live?')
+	}
+}
+
+def runUAT(port) {
+	sh "tests/runUAT.sh ${port}"
+
+}
+
