@@ -116,10 +116,10 @@ services:
       - librenms
     ports:
       - target: 514
-        published: 514
+        published: 1514
         protocol: tcp
       - target: 514
-        published: 514
+        published: 1514
         protocol: udp
     volumes:
       - "./librenms:/data"
