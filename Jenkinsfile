@@ -16,9 +16,9 @@ pipeline {
         stage("Build - dev") {
             steps { buildApp('dev') }
 	}
-	stage("Test - dev") {
+	/**stage("Test - dev") {
             steps { runUAT(8010) }
-	}
+	}**/
 	    
 	stage("Approve") {
             steps { approve() }
@@ -37,13 +37,13 @@ pipeline {
 def buildApp(environment) {
 
 	if ("${environment}" == 'dev') {
-		/**sh "docker stop \$(docker ps -q --filter name=librenms-dev)"
-		sh "docker rm \$(docker ps -a -q --filter name=librenms-dev)"**/
+		sh "docker ps -f name=librenms-dev -q | xargs --no-run-if-empty docker stop"
+		sh "docker ps -a -f name=librenms-dev -q | xargs -r docker rm"
 		sh "cd dev ; docker-compose up -d --force-recreate ; cd .."
 	} 
 	else if ("${environment}" == 'prod') {
-		/**sh "docker stop \$(docker ps -q --filter name=librenms-prod)"
-		sh "docker rm \$(docker ps -a -q --filter name=librenms-prod)"**/
+		sh "docker ps -f name=librenms-prod -q | xargs --no-run-if-empty docker stop"
+		sh "docker ps -a -f name=librenms-prod -q | xargs -r docker rm"
 		sh "cd prod ; docker-compose up -d --force-recreate; cd .."
 	}
 	else {
