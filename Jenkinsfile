@@ -28,9 +28,9 @@ pipeline {
             steps { buildApp('prod') }
 	}
 
-	/**stage("Test - UAT Live") {
+	stage("Test - UAT Prod") {
             steps { runUAT(8020) }
-	}**/
+	}
     }
 }
 
