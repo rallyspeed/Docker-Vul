@@ -61,7 +61,7 @@ def approve() {
 
 def runUAT(port) {
 	sh "chmod 755 test/runUAT.sh"
-	sh "cd test/runUAT.sh ${port}"
+	sh "test/runUAT.sh ${port}"
 
 }
 
