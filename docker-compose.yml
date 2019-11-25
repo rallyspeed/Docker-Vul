@@ -81,7 +81,7 @@ services:
       - "DB_PASSWORD=${MYSQL_PASSWORD}"
       - "DB_TIMEOUT=60"
     env_file:
-      - "./librenms.env"
+      - "/home/jenkins/workspace/Docker-Compose/librenms.env"
     restart: always
 
   cron:
@@ -104,7 +104,7 @@ services:
       - "DB_TIMEOUT=60"
       - "SIDECAR_CRON=1"
     env_file:
-      - "./librenms.env"
+      - "/home/jenkins/workspace/Docker-Compose/librenms.env"
     restart: always
 
   syslog-ng:
@@ -134,5 +134,5 @@ services:
       - "DB_TIMEOUT=60"
       - "SIDECAR_SYSLOGNG=1"
     env_file:
-      - "./librenms.env"
+      - "/home/jenkins/workspace/Docker-Compose/librenms.env"
     restart: always
